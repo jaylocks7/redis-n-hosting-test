@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Teams By Region</title>
+</head>
+<body>
+    <h1>NBA Teams By Region</h1>
+
+    <select id="region-select">
+        <option value="">-- Select a Region --</option>
+        <option value="atlantic">Atlantic</option>
+        <option value="central">Central</option>
+        <option value="southeast">Southeast</option>
+        <option value="northwest">Northwest</option>
+        <option value="pacific">Pacific</option>
+        <option value="southwest">Southwest</option>
+    </select>
+
+    <ul id="teams-list"></ul>
+
+    <script>
+        document.getElementById("region-select").addEventListener("change", async function () {
+            const region = this.value;
+            const list = document.getElementById("teams-list");
+            list.innerHTML = "";
+
+            if (!region) return;
+
+            const response = await fetch(`http://localhost:5000/teams/${region}`);
+            const data = await response.json();
+            data.response.teamList.forEach(team => {
+                const li = document.createElement("li");
+                li.innerHTML = `<img src="${team.logo}" alt="${team.name} logo" width="40"> ${team.name}`;
+                list.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: redis-n-hosting-test
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn api:app

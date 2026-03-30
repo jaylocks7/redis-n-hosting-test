@@ -28,7 +28,7 @@
 
             if (!region) return;
 
-            const response = await fetch(`http://localhost:5000/teams/${region}`);
+            const response = await fetch(`/teams/${region}`);
             const data = await response.json();
             data.response.teamList.forEach(team => {
                 const li = document.createElement("li");

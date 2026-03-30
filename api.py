@@ -3,7 +3,7 @@ import dotenv
 import os
 import redis
 import json
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_file
 from flask_cors import CORS
 
 dotenv.load_dotenv()
@@ -37,6 +37,10 @@ def get_with_cache(url, ttl=3600):
     data = response.json()
     r.set(url, json.dumps(data), ex=ttl)
     return data
+
+@app.route("/")
+def index():
+    return send_file("index.html")
 
 @app.route("/teams/<region>")
 def get_teams(region):
